@@ -24,18 +24,11 @@
     },
     {
       "src": "/logo192.png",
-      "dest": "/logo192.png"
-    },
-    {
-      "src": "/logo512.png",
       "dest": "/logo512.png"
     },
     {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "REACT_APP_API_URL": "@react_app_api_url"
-  }
+  ]
 }
