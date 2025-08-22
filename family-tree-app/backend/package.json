@@ -4,8 +4,9 @@
   "description": "Backend for Family Tree Management Application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node start.js",
     "dev": "nodemon server.js",
+    "prod": "node server.js",
     "seed": "node seeders/sampleData.js",
     "test": "node test-backend.js"
   },

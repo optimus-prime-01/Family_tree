@@ -5,6 +5,7 @@ services:
     plan: free
     buildCommand: npm install
     startCommand: npm start
+    rootDir: family-tree-app/backend
     envVars:
       - key: NODE_ENV
         value: production
@@ -20,4 +21,4 @@ services:
         sync: false
       - key: CLOUDINARY_API_SECRET
         sync: false
-    healthCheckPath: /
+    healthCheckPath: /health
