@@ -20,7 +20,7 @@ const Settings: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'account' | 'privacy' | 'notifications' | 'subscription'>('account');
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
 
   useEffect(() => {
     const checkAuth = async () => {

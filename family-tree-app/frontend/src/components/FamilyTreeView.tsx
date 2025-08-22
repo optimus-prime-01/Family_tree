@@ -2,7 +2,6 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { familyTreeAPI } from '../services/api';
-import TreeLinking from './TreeLinking';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -148,9 +147,6 @@ function buildTreeLayout(members: FamilyMember[]) {
 
   for (const [ri, row] of Array.from(levels.entries())) {
     // cluster by approximate parent family name from edges above
-    const parentsAbove = new Set(
-      pEdges.filter(([, c]) => levels[ri].includes(c)).map(([p]) => p)
-    );
     const families = new Map<string, string[]>();
     for (const id of row) {
       // try map to one of the parents' last tokens; else use own last token
@@ -417,8 +413,7 @@ const FamilyTreeView: React.FC = () => {
   );
   const [paths, setPaths] = useState<Array<{ d: string; kind: 'pc' | 'sp' }>>([]);
   
-  // Tree linking
-  const [showTreeLinking, setShowTreeLinking] = useState(false);
+
 
   // Draw connectors after layout/nodes render
   useLayoutEffect(() => {

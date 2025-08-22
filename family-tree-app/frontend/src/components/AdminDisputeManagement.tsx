@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { treeLinkAPI } from '../services/api';
 
 interface AdminDisputeManagementProps {
   onClose: () => void;

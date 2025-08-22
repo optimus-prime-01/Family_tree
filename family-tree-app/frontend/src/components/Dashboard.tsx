@@ -176,7 +176,7 @@ const Dashboard: React.FC = () => {
     if (activeNav === 'linked-trees' && trees.length > 0) {
       fetchLinkedTrees();
     }
-  }, [activeNav, trees]);
+  }, [activeNav, trees, fetchLinkedTrees]);
 
   const handleLogout = async () => {
     try { await authAPI.logout(); } catch (e) { console.error('Logout error:', e); }

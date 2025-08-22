@@ -55,9 +55,9 @@ const LoginPage: React.FC = () => {
             <span className="text-2xl font-bold tracking-tight">FamilyTree</span>
           </div>
           <nav className="hidden sm:flex gap-6 text-sm">
-            <a className="text-slate-300 hover:text-white" href="#">About</a>
-            <a className="text-slate-300 hover:text-white" href="#">Features</a>
-            <a className="text-slate-300 hover:text-white" href="#">Contact</a>
+            <button className="text-slate-300 hover:text-white">About</button>
+            <button className="text-slate-300 hover:text-white">Features</button>
+            <button className="text-slate-300 hover:text-white">Contact</button>
           </nav>
         </div>
       </header>
@@ -147,7 +147,7 @@ const LoginPage: React.FC = () => {
 
                 {activeTab === 'login' && (
                   <div className="text-right">
-                    <a href="#" className="text-sm text-slate-400 hover:text-white">Forgot Password?</a>
+                    <button className="text-sm text-slate-400 hover:text-white">Forgot Password?</button>
                   </div>
                 )}
 
@@ -235,8 +235,8 @@ const LoginPage: React.FC = () => {
             <span className="text-lg font-semibold">FamilyTree</span>
           </div>
           <div className="flex flex-wrap items-center gap-6 text-sm text-slate-400">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
+            <button className="hover:text-white">Privacy Policy</button>
+            <button className="hover:text-white">Terms of Service</button>
             <span>© 2025 FamilyTree. All rights reserved.</span>
           </div>
         </div>
