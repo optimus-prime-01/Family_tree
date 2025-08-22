@@ -221,38 +221,6 @@ const Dashboard: React.FC = () => {
   const handleTreeClick = (id: string) => navigate(`/family-tree/${id}`);
   const toggleSidebar = () => setSidebarCollapsed(v => !v);
   const toggleMobileMenu = () => setMobileMenuOpen(v => !v);
-    setIsLoadingLinkedTrees(true);
-    try {
-      const allLinkedTrees: any[] = [];
-      
-      // Get all trees owned by the user
-      for (const tree of trees) {
-        if (tree.linkedTrees && tree.linkedTrees.length > 0) {
-          // Fetch details for each linked tree
-          for (const linkedTree of tree.linkedTrees) {
-            try {
-              const linkedTreeData = await familyTreeAPI.getById(linkedTree.treeId);
-              allLinkedTrees.push({
-                ...linkedTree,
-                sourceTree: tree,
-                targetTree: linkedTreeData,
-                sourceTreeName: tree.name,
-                targetTreeName: linkedTreeData.name
-              });
-            } catch (error) {
-              console.error('Failed to fetch linked tree:', error);
-            }
-          }
-        }
-      }
-      
-      setLinkedTrees(allLinkedTrees);
-    } catch (error) {
-      console.error('Failed to fetch linked trees:', error);
-    } finally {
-      setIsLoadingLinkedTrees(false);
-    }
-  };
 
   if (loading) {
     return (
