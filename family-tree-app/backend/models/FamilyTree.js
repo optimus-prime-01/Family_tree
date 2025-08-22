@@ -105,8 +105,36 @@ const familyTreeSchema = new mongoose.Schema({
     maxMembers: {
       type: Number,
       default: 1000
+    },
+    allowLinking: {
+      type: Boolean,
+      default: true
+    },
+    allowPublicLinking: {
+      type: Boolean,
+      default: false
     }
   },
+  
+  // Linked trees
+  linkedTrees: [{
+    treeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'FamilyTree'
+    },
+    linkId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'TreeLink'
+    },
+    linkType: {
+      type: String,
+      enum: ['family_connection', 'marriage_connection', 'ancestral_connection', 'other']
+    },
+    linkStatus: {
+      type: String,
+      enum: ['pending', 'accepted', 'merged']
+    }
+  }],
   tags: [{
     type: String,
     trim: true

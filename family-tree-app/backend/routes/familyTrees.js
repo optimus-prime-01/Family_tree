@@ -29,13 +29,58 @@ router.get('/:id', auth, async (req, res) => {
     }
 
     // Check if user has access to this tree
-    if (tree.owner._id.toString() !== req.user._id.toString() && tree.privacy === 'private') {
+    // Allow access if user owns the tree, tree is public, or tree allows linking
+    if (tree.owner._id.toString() !== req.user._id.toString() && 
+        tree.privacy === 'private' && 
+        !tree.settings?.allowLinking) {
       return res.status(403).json({ message: 'Access denied' });
+    }
+    
+    // If user doesn't own the tree and it's not public, limit member data for privacy
+    if (tree.owner._id.toString() !== req.user._id.toString() && tree.privacy === 'private') {
+      // Only return basic member info needed for linking
+      tree.members = tree.members.map(member => ({
+        _id: member._id,
+        name: member.name,
+        relationship: member.relationship,
+        gender: member.gender
+      }));
     }
 
     res.json(tree);
   } catch (error) {
     console.error('Error fetching family tree:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get tree members for linking (limited data)
+router.get('/:id/members-for-linking', auth, async (req, res) => {
+  try {
+    const tree = await FamilyTree.findById(req.params.id)
+      .select('name privacy settings members')
+      .populate('members', '_id name relationship gender');
+    
+    if (!tree) {
+      return res.status(404).json({ message: 'Family tree not found' });
+    }
+
+    // Check if tree allows linking
+    if (!tree.settings?.allowLinking) {
+      return res.status(403).json({ message: 'This tree does not allow linking' });
+    }
+
+    // Return only basic member info needed for linking
+    const members = tree.members.map(member => ({
+      _id: member._id,
+      name: member.name,
+      relationship: member.relationship,
+      gender: member.gender
+    }));
+
+    res.json({ members });
+  } catch (error) {
+    console.error('Error fetching tree members for linking:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
